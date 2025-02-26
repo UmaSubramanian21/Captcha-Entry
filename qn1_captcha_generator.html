@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Capcha</title>
+    <style>
+        body {
+            background-color: rgb(138, 245, 138);
+            font-size: 20px;
+        }
+
+        section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            margin: 50px;
+            font-size: 20px;
+
+        }
+
+        #captcha_box {
+            border-bottom: solid black 1px;
+            padding: 10px;
+            font-size: 20px;
+
+        }
+
+        #user_captcha {
+            padding: 10px;
+            outline: none;
+            border: none;
+            font-size: 20px;
+            background-color: rgb(56, 226, 70);
+        }
+
+        #verify {
+            padding: 10px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
+    <section>
+        <div id="captcha_box"></div>
+        <input type="text" placeholder="Type Captcha" id="user_captcha">
+        <button id="verify">Verify</button>
+
+    </section>
+
+</body>
+<!-- js -->
+<script>
+    var captcha_Box = document.getElementById("captcha_box")
+    var user_captcha = document.getElementById("user_captcha")
+    var verify = document.getElementById("verify")
+    // variable to store a generated captcha
+    let generatedCaptcha = ""
+    // function to generate a new captcha
+    function generateCaptcha() {
+        let chars = "ABCDEFGHIJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+        // initialize an empty string
+        let captcha = ""
+        for (let i = 0; i < 6; i++) {
+            // picks a random character from chars and append it to captcha
+            // if we use " captcha = " the generated characters overrites 
+            // += it means append 
+            console.log(i)
+            captcha += chars.charAt(Math.floor(Math.random() * chars.length))
+            // Stores the
+            generatedCaptcha = captcha
+            captcha_box.textContent = captcha
+        }
+
+    }
+
+    // function to validate the entered captcha
+    verify.addEventListener("click", function validate() {
+
+        if (user_captcha.value === generatedCaptcha) {
+            alert("Captcha matches")
+        }
+        else {
+            alert("Enter correct captcha")
+            generateCaptcha()
+        }
+    })
+
+    window.onload = generateCaptcha
+
+</script>
+
+</html>
